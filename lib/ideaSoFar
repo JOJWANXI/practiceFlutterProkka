@@ -1,0 +1,18 @@
+1. MVVM ARCHITECTURE:
+    View: Widget display present the data to the user (UI)
+        -- FileView file: FilePicker, FileNameDisplay, ContentPage
+
+    ViewModel:
+        from Model to ViewModel:
+
+    Model:
+        -- FileModel: hold the state of the selected file and handles file reading
+
+2. still thinking:
+    a. main.dart class line 20 -- prob change this provider into fileView file
+        return ChangeNotifierProvider(
+            create: (context) => FileModel(), );
+
+    b. fileViewModel class line 19 -- the type later prob custom
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+            type: FileType.any, );

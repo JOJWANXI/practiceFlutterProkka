@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:try_prokka1/appBar.dart';
-import 'package:try_prokka1/uploadFile.dart';
+import 'package:try_prokka1/fileModel.dart';
+import 'package:try_prokka1/fileView.dart';
 
 
 void main() {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
     //ChangeNotifierProvider: state is created and provided to the whole app
     return ChangeNotifierProvider(
       //alow any widge--get hold of the state
-      create: (context) => MyAppState(),
+      create: (context) => FileModel(),
+      // prob change this provider into fileView file
       child: MaterialApp(
         title: 'Namer App',
         theme: ThemeData(
@@ -34,7 +36,6 @@ class MyApp extends StatelessWidget {
 //MyAppState: defines the data the app needs to function
 //extendsChangeNotifier: notify others about its own changes
 class MyAppState extends ChangeNotifier {
-
   notifyListeners();
 }
 
