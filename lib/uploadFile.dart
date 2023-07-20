@@ -19,15 +19,14 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
     return Column(
       children: <Widget>[
         ElevatedButton(
-          child: Text( 'Select FASTA file'),
+          child: Text( 'Select file'),
           onPressed: () async{
             // FilePicker.platform.pickFiles: open native file picker
             // await -- asynchronous
             // result value: null / picked file
             FilePickerResult? result = await FilePicker.platform.pickFiles(
-                type: FileType.custom,
-                //target file format: FASTA files
-                allowedExtensions: ['fasta', 'fa']
+                type: FileType.any,
+              //prob change later to custom the mainly format is fasta, Genbank
             );
 
             if(result != null){

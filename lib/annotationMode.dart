@@ -26,6 +26,7 @@ class _annotationModeWidgetState extends State<annotationModeWidget> {
         setState(() {
           selectedKingdom = newValue! ;
         }
+        // the logic ?probably: update the state of the widgets ?call prokka
         );},
     );
   }
