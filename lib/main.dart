@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:try_prokka1/appBar.dart';
 import 'package:try_prokka1/uploadFile.dart';
 
 
@@ -68,25 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (context, constraints){
             //callback is called every time the constraints change
             return Scaffold(
-                appBar: AppBar(
-                  title: Text('Prokka GUI'),
-                  actions: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.file_upload),
-                      tooltip: 'Upload',
-                      onPressed: () {
-                        /* place upload functionality here */
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.settings),
-                      tooltip: 'Settings',
-                      onPressed: () {
-                        /* place settings functionality here */
-                      },
-                    ),
-                  ],
-                ),
+                appBar: CustomAppBar('Prokka GUI'),
                 body: Row(
                   children: [
                     // safeArea wraps around NavigationRail
