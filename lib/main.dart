@@ -63,59 +63,65 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('Prokka GUI'),
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.file_upload),
-                  tooltip: 'Upload',
-                  onPressed: () {
-                    /* place upload functionality here */
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.settings),
-                  tooltip: 'Settings',
-                  onPressed: () {
-                    /* place settings functionality here */
-                  },
-                ),
-              ],
-            ),
-        body: Row(
-          children: [
-            SafeArea(
-                child: NavigationRail(
-                  extended: false,
-                  destinations: [
-                    NavigationRailDestination(
-                        icon: Icon(Icons.file_upload),
-                        label: Text('upload')
+      //LayoutBuilder:change the widget tree depending on how much available space
+        home: LayoutBuilder(
+          builder: (context, constraints){
+            //callback is called every time the constraints change
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text('Prokka GUI'),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.file_upload),
+                      tooltip: 'Upload',
+                      onPressed: () {
+                        /* place upload functionality here */
+                      },
                     ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.settings),
-                      label: Text('Settings'),
+                    IconButton(
+                      icon: const Icon(Icons.settings),
+                      tooltip: 'Settings',
+                      onPressed: () {
+                        /* place settings functionality here */
+                      },
                     ),
                   ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value){
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
+                ),
+                body: Row(
+                  children: [
+                    // safeArea wraps around NavigationRail
+                    SafeArea(
+                        child: NavigationRail(
+                          extended: constraints.maxWidth >= 600, //label next to the icons
+                          destinations: [
+                            NavigationRailDestination(
+                                icon: Icon(Icons.file_upload),
+                                label: Text('upload')
+                            ),
+                            NavigationRailDestination(
+                              icon: Icon(Icons.settings),
+                              label: Text('Settings'),
+                            ),
+                          ],
+                          selectedIndex: selectedIndex,
+                          onDestinationSelected: (value){
+                            setState(() {
+                              selectedIndex = value;
+                            });
+                          },
+                        )
+                    ),
+                    Expanded(
+                        child: Container(
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          child: page,
+                        )
+                    ),
+                  ],
                 )
-            ),
-            Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                )
-            ),
-          ],
-
+            );
+          },
         )
-      )
     );
   }
 }
