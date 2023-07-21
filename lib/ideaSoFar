@@ -8,6 +8,7 @@
     Model:
         -- FileModel: hold the state of the selected file and handles file reading
 
+
 2. still thinking:
     a. main.dart class line 20 -- prob change this provider into fileView file
         return ChangeNotifierProvider(
@@ -16,3 +17,14 @@
     b. fileViewModel class line 19 -- the type later prob custom
     FilePickerResult? result = await FilePicker.platform.pickFiles(
             type: FileType.any, );
+
+    c. However, keep in mind that for this to work,
+    your Dart/Flutter application must be run in a context where it has access to the system's PATH.
+    This is generally the case when you run it from the command line
+    or from an IDE like Android Studio or Visual Studio Code,
+    but it may not be the case if you package your application into a standalone executable
+    and run it by double-clicking, depending on the operating system and the packaging method.
+
+    If you want to support the case where Prokka isn't in the system's PATH,
+    you could allow the user to specify the full path to the Prokka executable
+    in your application's settings, as I mentioned in the previous message.

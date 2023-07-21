@@ -32,4 +32,5 @@ class FileModel extends ChangeNotifier {
       throw Exception('No file selected');
     }
   }
+
 }

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:try_prokka1/appBar.dart';
 import 'package:try_prokka1/fileModel.dart';
 import 'package:try_prokka1/fileView.dart';
+import 'package:try_prokka1/versionCheck.dart';
 
 
 void main() {
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = FilePickerWidget();
         break;
       case 1:
-        page = Placeholder();
+        page = ProkkaVersion();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
