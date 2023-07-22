@@ -19,7 +19,8 @@ class FilePickerWidget extends StatelessWidget{
             }catch(e){
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Failed to read file: $e'),)
-              ); } },
+              ); }
+          },
         ),
         FileNameDisplay(),
         ElevatedButton(
@@ -42,8 +43,8 @@ class FilePickerWidget extends StatelessWidget{
                 builder: (BuildContext context){
                   return AlertDialog(
                     content: annotationModeWidget(),
-                  );
-                },);
+                  );},
+            );
           },
         )
       ],

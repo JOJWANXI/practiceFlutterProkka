@@ -1,18 +1,18 @@
-import 'dart:io'; // dart:io package's Process class
+import 'dart:io';
+import 'package:try_prokka1/config.dart'; // dart:io package's Process class
 
 class ExecuteProkka{
 
   // Process.run will execute a shell command and return Future<ProcessResult>
   // await -- get the ProcessResult
-  //
 
   void runProkka(String fastaFilePath, String outputDir, String selectedKingdom) async {
     // Run Prokka with the specified FASTA file, output directory, and kingdom
     // run a process and collect its output
     ProcessResult result = await Process.run(
-      'prokka',  // The command to run
+      PathConfig.path,  // The command to run
       ['--kingdom', selectedKingdom, '--outdir', outputDir, fastaFilePath],
-      // The arguments to the command
+
     );
 
     // Check if the process succeeded
