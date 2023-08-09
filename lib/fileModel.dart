@@ -1,35 +1,54 @@
 import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 
-class FileModel extends ChangeNotifier {
-  String _fileName = '';
-  String _fileContent = '';
-  String _filePath = '';
+class FileModel{
+  //late: delay initialization of a variable until it's actually used
+  //non-nullable variable: initialize later
+  //variable before it has a value: LateInitializationError
+  //file won't be assigned a value until selectFile method is called
+  late File file;
+  String filePath = '';
+  String fileName = '';
+  String fileContent = '';
 
-  String get fileName => _fileName;
-  String get fileContent => _fileContent;
-  String get filePath => _filePath;
-
+  // Method to select a file
   Future<void> selectFile() async {
-    // FilePicker.platform.pickFiles: open native file picker
-    // await -- asynchronous
-    // result value: null / picked file
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.any,
     );
 
-    if(result != null) {
+    if (result != null) {
       try {
-        _filePath = result.files.single.path!;
-        _fileContent = await File(_filePath).readAsString();
-        _fileName = result.files.single.name;
-        notifyListeners();
+        filePath = result.files.single.path!;
+        file = File(filePath);
+        fileContent = await file.readAsString();
+        fileName = result.files.single.name;
       } catch (e) {
         throw Exception('Failed to read file: $e');
       }
     } else {
       throw Exception('No file selected');
+    }
+  }
+
+  // Method to read the file
+  Future<void> readFile() async {
+    try {
+      fileContent = await file.readAsString();
+    } catch (e) {
+      throw Exception('Failed to read file: $e');
+    }
+  }
+
+  // Method to write to the file
+  Future<void> writeFile(String content) async {
+    try {
+      await file.writeAsString(content);
+      fileContent = content;
+    } catch (e) {
+      throw Exception('Failed to write file: $e');
     }
   }
 

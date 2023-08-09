@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:try_prokka1/annotationMode.dart';
-import 'fileModel.dart';
+import 'package:try_prokka1/fileViewModel.dart';
 
 // !!!!! file path, fileName
 // these prob should be the appState
@@ -15,7 +15,8 @@ class FilePickerWidget extends StatelessWidget{
           child: Text( 'Select file'),
           onPressed: ()async{
             try{
-              await context.read<FileModel>().selectFile();
+              //interact with FileViewModel
+              await context.read<FileViewModel>().selectFile();
             }catch(e){
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Failed to read file: $e'),)
@@ -55,7 +56,7 @@ class FilePickerWidget extends StatelessWidget{
 class FileNameDisplay extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    final fileName = context.watch<FileModel>().fileName;
+    final fileName = context.watch<FileViewModel>().fileName;
     return Text('Selected file: $fileName');
   }
 }
@@ -63,7 +64,7 @@ class FileNameDisplay extends StatelessWidget{
 class ContentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
-    final fileContent = context.watch<FileModel>().fileContent;
+    final fileContent = context.watch<FileViewModel>().fileContent;
     return Scaffold(
       appBar: AppBar(title: Text('File Content'),),
       body: SingleChildScrollView(child: Text(fileContent),),

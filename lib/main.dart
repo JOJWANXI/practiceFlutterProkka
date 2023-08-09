@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:try_prokka1/appBar.dart';
 import 'package:try_prokka1/fileModel.dart';
 import 'package:try_prokka1/fileView.dart';
+import 'package:try_prokka1/fileViewModel.dart';
 import 'package:try_prokka1/versionCheck.dart';
 
 
@@ -12,7 +13,7 @@ void main() {
 
 // create app-wide state
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
 
   // widget -- root of the application
   @override
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     //ChangeNotifierProvider: state is created and provided to the whole app
     return ChangeNotifierProvider(
       //alow any widge--get hold of the state
-      create: (context) => FileModel(),
+      create: (context) => FileViewModel(FileModel()),
       // prob change this provider into fileView file
       child: MaterialApp(
         title: 'Namer App',
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
 //MyAppState: defines the data the app needs to function
 //extendsChangeNotifier: notify others about its own changes
 class MyAppState extends ChangeNotifier {
+  @override
   notifyListeners();
 }
 
