@@ -1,6 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:try_prokka1/config.dart';
+import 'package:try_prokka1/prokkaService.dart';
 
 // this version checks now is local and based on the conda environment
 // later can use this to check whether the user install the prokka and
@@ -14,6 +13,8 @@ class ProkkaVersion extends StatefulWidget {
 
 class _ProkkaVersionState extends State<ProkkaVersion> {
   String _output = 'Not checked yet';
+  //instantiate the 'ProkkaService' class--instance
+  final ProkkaService prokkaService = ProkkaService();
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +32,11 @@ class _ProkkaVersionState extends State<ProkkaVersion> {
     );
   }
 
-  void _checkProkkaVersion() async {
-    try {
-      final result = await Process.run(
-        //static method should be accessed directly on the class
-        //so ProkkaConfig().path this kind of instance can not work
-          PathConfig.path,
-          ['--version'],
-          environment: {'PATH': PathConfig.environmentPath});
-      setState(() {
-        _output = result.stdout.toString() + result.stderr.toString();
-      });
-    } catch (e) {
-      setState(() {
-        _output = 'Error: Prokka not found. Please install Prokka.';
-      });
-    }
+  Future<void> _checkProkkaVersion() async {
+    String result = await prokkaService.checkVersion();
+    setState(() {
+      _output = result;//update the state--trigger widget
+    });
   }
 
 }

@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 
 class FileModel{
   //late: delay initialization of a variable until it's actually used

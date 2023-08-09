@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:try_prokka1/annotationMode.dart';
-import 'package:try_prokka1/fileViewModel.dart';
+import 'package:try_prokka1/fileMvvms/fileViewModel.dart';
 
-// !!!!! file path, fileName
-// these prob should be the appState
-// refactor the structure
-class FilePickerWidget extends StatelessWidget{
+class fileView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,14 +33,20 @@ class FilePickerWidget extends StatelessWidget{
             },
         ),
         ElevatedButton(
-          child: Text('Select Annotation mode (default: Bacteria)'),
+          child: Consumer<ModeModel>(
+            //builder is called--the modeModel changes
+            builder: (context, modeModel, child){
+              return Text('Select Annotation mode ('
+                  '${modeModel.selectedMode})');
+            },
+          ),
           // onPressed: expected a Void function
           onPressed: (){
             showDialog(
                 context: context,
                 builder: (BuildContext context){
                   return AlertDialog(
-                    content: annotationModeWidget(),
+                    content: AnnotationModeWidget(),
                   );},
             );
           },
@@ -70,4 +73,5 @@ class ContentPage extends StatelessWidget {
       body: SingleChildScrollView(child: Text(fileContent),),
     );
   }
+
 }

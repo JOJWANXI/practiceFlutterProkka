@@ -1,33 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:try_prokka1/prokkaService.dart';
 
-class annotationModeWidget extends StatefulWidget{
+class AnnotationModeWidget extends StatefulWidget{
   @override
-  State<annotationModeWidget> createState() => _annotationModeWidgetState();
+  State<AnnotationModeWidget> createState() => _AnnotationModeWidgetState();
 }
 
-class _annotationModeWidgetState extends State<annotationModeWidget> {
-  String selectedKingdom = 'Bacteria';
+class _AnnotationModeWidgetState extends State<AnnotationModeWidget> {
+  final ProkkaService prokkaService = ProkkaService();
 
   @override
   Widget build(BuildContext context) {
+    /*  Provider package: state management
+    Provider.of<T> T:AnnotationModeModel object
+    context: Provider->nearest provider
+    so when data in modeModel changes & notifyListeners()
+    then any widget that uses Provider.of<T> will rebuild */
+    var annotationModeModel = Provider.of<ModeModel>(context);
+    var selectedKingdom = annotationModeModel.selectedMode;
 
     return DropdownButton<String>(
-      //String? value,
       value: selectedKingdom,
-      //The items must have distinct value
-      items: <String>['Archaea', 'Bacteria', 'Mitochondria', 'Viruses'].map((String value){
+      items: <String>['Archaea', 'Bacteria', 'Mitochondria', 'Viruses']
+          .map((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
         );
-        },).toList(),
-      onChanged:(newValue){
-        setState(() {
-          selectedKingdom = newValue! ;
-        }
-        // the logic ?probably: update the state of the widgets ?call prokka
-        );},
+      },).toList(),
+      onChanged: (newValue) {
+        // Update the value in the model
+        annotationModeModel.setSelectedMode(newValue!);
+        _executeProkkaWithKingdom(newValue);
+      },
     );
   }
+
+  Future<void> _executeProkkaWithKingdom(String kingdom) async {
+    String result = await prokkaService.runWithKingdom(kingdom);
+
+  }
+}
+
+class ModeModel extends ChangeNotifier {
+  String _selectedMode = 'Bacteria';
+
+  String get selectedMode => _selectedMode;
+
+  void setSelectedMode(String mode) {
+    _selectedMode = mode;
+    notifyListeners();
+  }
+
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:try_prokka1/annotationMode.dart';
 import 'package:try_prokka1/appBar.dart';
-import 'package:try_prokka1/fileModel.dart';
-import 'package:try_prokka1/fileView.dart';
-import 'package:try_prokka1/fileViewModel.dart';
+import 'package:try_prokka1/fileMvvms/fileModel.dart';
+import 'package:try_prokka1/fileMvvms/fileView.dart';
+import 'package:try_prokka1/fileMvvms/fileViewModel.dart';
 import 'package:try_prokka1/versionCheck.dart';
 
 
@@ -19,18 +20,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //ChangeNotifierProvider: state is created and provided to the whole app
-    return ChangeNotifierProvider(
-      //alow any widge--get hold of the state
-      create: (context) => FileViewModel(FileModel()),
+    return MultiProvider(
+        providers:[//alow any widge--get hold of the state
+          ChangeNotifierProvider(
+              create: (context) => FileViewModel(FileModel())),
+          ChangeNotifierProvider(
+              create: (context)=> ModeModel()),
+        ],
+
       // prob change this provider into fileView file
-      child: MaterialApp(
-        title: 'Namer App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        child: MaterialApp(
+          title: 'Namer App',
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          ),
+          home: MyHomePage(),
         ),
-        home: MyHomePage(),
-      ),
     );
   }
 }
@@ -58,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = FilePickerWidget();
+        page = fileView();
         break;
       case 1:
         page = ProkkaVersion();
