@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:try_prokka1/annotationMode.dart';
-import 'package:try_prokka1/fileMvvms/fileViewModel.dart';
+import 'package:try_prokka1/fileViewModel.dart';
+
+import 'prokkaService.dart';
 
 class fileView extends StatelessWidget{
   @override
@@ -50,7 +52,19 @@ class fileView extends StatelessWidget{
                   );},
             );
           },
-        )
+        ),
+        ElevatedButton(
+          child: Text('Start Annotation'),
+          onPressed: () async {
+            var annotationModeModel = Provider.of<ModeModel>(context, listen: false);
+            var selectedKingdom = annotationModeModel.selectedMode;
+            final ProkkaService prokkaService = ProkkaService();
+            final fileViewModel = Provider.of<FileViewModel>(context, listen: false);
+
+            String result = await prokkaService.runWithKingdom(selectedKingdom, fileViewModel.fileModel.filePath);
+            // Handle the result as needed
+          },
+        ),
       ],
     );
   }

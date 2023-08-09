@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:try_prokka1/config.dart'; // dart:io package's Process class
-
+//locustag, prefix
 class ProkkaService {
   Future<String> executeCommand(List<String> arguments) async {
     try {
@@ -18,9 +18,10 @@ class ProkkaService {
     return await executeCommand(['--version']);
   }
 
-  Future<String> runWithKingdom(String kingdom) async {
-    return await executeCommand(['--kingdom', kingdom]);
+  Future<String> runWithKingdom(String kingdom, String filePath) async {
+    return await executeCommand(['--kingdom', kingdom, filePath]);
   }
+
 
 }
 

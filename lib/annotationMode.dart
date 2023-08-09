@@ -33,14 +33,8 @@ class _AnnotationModeWidgetState extends State<AnnotationModeWidget> {
       onChanged: (newValue) {
         // Update the value in the model
         annotationModeModel.setSelectedMode(newValue!);
-        _executeProkkaWithKingdom(newValue);
       },
     );
-  }
-
-  Future<void> _executeProkkaWithKingdom(String kingdom) async {
-    String result = await prokkaService.runWithKingdom(kingdom);
-
   }
 }
 

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:try_prokka1/annotationMode.dart';
 import 'package:try_prokka1/appBar.dart';
-import 'package:try_prokka1/fileMvvms/fileModel.dart';
-import 'package:try_prokka1/fileMvvms/fileView.dart';
-import 'package:try_prokka1/fileMvvms/fileViewModel.dart';
+import 'package:try_prokka1/fileModel.dart';
+import 'package:try_prokka1/fileView.dart';
+import 'package:try_prokka1/fileViewModel.dart';
 import 'package:try_prokka1/versionCheck.dart';
 
 
