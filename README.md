@@ -11,7 +11,9 @@ The overarching goal is to make Linux command-line tools, particularly Prokka, m
 **Current Features (Subject to Future Improvements)**
  
     File Management: Facilitates user interaction with genome annotation files (an opportunity to understand MVVM).
-    Prokka Integration: Offers functionalities such as checking Prokka's version and executing genome annotation tasks.
+    Prokka Integration: Offers functionalities such as checking Prokka's version and executing genome annotation tasks 
+     checking version by matching the command prokka --version,this is also the step to figure out is the path correct
+     executing genome annotation tasks by matching the command prokka --kingdom (selecting the Annotation mode)
     Responsive UI: Adapts layout according to screen size for a seamless user experience.
     Custom Theme and Error Handling: Enhances UI appeal and stability.
 
